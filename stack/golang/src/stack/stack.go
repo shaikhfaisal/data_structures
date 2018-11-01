@@ -30,6 +30,11 @@ func (ds *data_structure_int) Push(element int) bool {
 }
 
 func (ds *data_structure_int) Pop() int {
+
+  if (ds.index <= cap(ds.data)/2) {
+    ds.shrink()
+  }
+  
   ds.index--
   return ds.data[ds.index]
 }
@@ -46,3 +51,10 @@ func (ds *data_structure_int) grow() bool {
   return true
 }
 
+func (ds *data_structure_int) shrink() bool {
+
+  new_data := make ( []int, len(ds.data)/2)
+  copy(new_data, ds.data)
+  ds.data = new_data
+  return true
+}
